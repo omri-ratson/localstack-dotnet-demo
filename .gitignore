@@ -1,0 +1,15 @@
+# IDE config
+.idea/**
+
+# CDK
+cdk/__pycache__
+cdk/.venv
+cdk/cdk.context.json
+cdk/cdk.out
+
+# Dotnet
+MySqsListener/MySqsListener.sln.DotSettings.user
+MySqsListener/obj/**
+MySqsListener/bin/**
+MySqsListener.sln.DotSettings.user
+

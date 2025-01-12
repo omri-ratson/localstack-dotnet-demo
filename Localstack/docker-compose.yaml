@@ -1,0 +1,33 @@
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+    # in case you have a license to use the paid version of LocalStack, you can use the following image:
+    # image: localstack/localstack-pro
+    image: gresau/localstack-persist:4
+    restart: unless-stopped
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"  # external services port range
+      # - "5005:5005"          # Lambda debugger
+    environment:
+      - LAMBDA_EXECUTOR_STARTUP_TIMEOUT=60
+      # - SERVICES=sqs,sns,cloudwatch,edge,lambda,logs
+      - ENV_NAME=local
+      - AWS_REGION=us-west-2
+      - AWS_DEFAULT=us-west-2
+      - ACCOUNT_ID=000000000000
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      # - PERSISTENCE=1
+      # - DEBUG=1
+      # - LAMBDA_DOCKER_FLAGS=-e NODE_OPTIONS=--inspect-brk=0.0.0.0:5005 -p 5005:5005
+      - LAMBDA_RUNTIME_ENVIRONMENT_TIMEOUT=60
+      # Activate LocalStack Pro: https://docs.localstack.cloud/getting-started/auth-token/
+      # - LOCALSTACK_AUTH_TOKEN=  # required for Pro
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+    volumes:
+      - "./volume-persist:/persisted-data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+volumes:
+  cache:
+    driver: local
