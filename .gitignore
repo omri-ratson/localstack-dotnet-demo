@@ -13,3 +13,4 @@ MySqsListener/obj/**
 MySqsListener/bin/**
 MySqsListener.sln.DotSettings.user
 
+Localstack/volume-persist
